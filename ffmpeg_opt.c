@@ -112,6 +112,7 @@ int copy_ts           = 0;
 int start_at_zero     = 0;
 int copy_tb           = -1;
 int debug_ts          = 0;
+int debug_pkt         = 0;
 int exit_on_error     = 0;
 int abort_on_flags    = 0;
 int print_stats       = -1;
@@ -3283,8 +3284,13 @@ const OptionDef options[] = {
         "extract an attachment into a file", "filename" },
     { "stream_loop", OPT_INT | HAS_ARG | OPT_EXPERT | OPT_INPUT |
                         OPT_OFFSET,                                  { .off = OFFSET(loop) }, "set number of times input stream shall be looped", "loop count" },
+
     { "debug_ts",       OPT_BOOL | OPT_EXPERT,                       { &debug_ts },
         "print timestamp debugging info" },
+
+    { "debug_pkt",       OPT_INT | OPT_EXPERT,                       { &debug_pkt },
+        "print packet debugging info" },
+
     { "max_error_rate",  HAS_ARG | OPT_FLOAT,                        { &max_error_rate },
         "maximum error rate", "ratio of errors (0.0: no errors, 1.0: 100% errors) above which ffmpeg returns an error instead of success." },
     { "discard",        OPT_STRING | HAS_ARG | OPT_SPEC |
