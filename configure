@@ -1756,6 +1756,7 @@ EXTERNAL_LIBRARY_LIST="
     $EXTERNAL_LIBRARY_NONFREE_LIST
     $EXTERNAL_LIBRARY_VERSION3_LIST
     $EXTERNAL_LIBRARY_GPLV3_LIST
+    protobuf_c
     chromaprint
     gcrypt
     gnutls
@@ -1908,6 +1909,7 @@ PROGRAM_LIST="
     ffplay
     ffprobe
     ffmpeg
+    ffrdp
 "
 
 SUBSYSTEM_LIST="
@@ -3269,6 +3271,7 @@ videotoolbox_deps="corefoundation coremedia corevideo"
 videotoolbox_encoder_deps="videotoolbox VTCompressionSessionPrepareToEncodeFrames"
 
 # demuxers / muxers
+pb_muxer_deps="protobuf_c"
 ac3_demuxer_select="ac3_parser"
 act_demuxer_select="riffdec"
 aiff_muxer_select="iso_media"
@@ -3700,6 +3703,8 @@ ffplay_suggest="shell32"
 ffprobe_deps="avcodec avformat"
 ffprobe_suggest="shell32"
 
+ffrdp_deps="avcodec avformat swscale swresample sdl2"
+
 # documentation
 podpages_deps="perl"
 manpages_deps="perl pod2man"
@@ -4024,6 +4029,9 @@ for opt do
         ;;
         --enable-sdl)
             enable sdl2
+        ;;
+        --enable-protobuf_c)
+            enable protobuf_c
         ;;
         --enable-*=*|--disable-*=*)
             eval $(echo "${opt%%=*}" | sed 's/--/action=/;s/-/ thing=/')
@@ -6505,6 +6513,10 @@ if enabled sdl2; then
     if test $target_os = "mingw32"; then
         sdl2_extralibs=$(filter_out '-mwindows' $sdl2_extralibs)
     fi
+fi
+
+if enabled protobuf_c; then
+    check_headers protobuf-c/protobuf-c.h && protobuf_c_extralibs="-lprotobuf-c" || disable protobuf_c
 fi
 
 if enabled decklink; then

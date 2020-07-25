@@ -1,6 +1,7 @@
 AVPROGS-$(CONFIG_FFMPEG)   += ffmpeg
 AVPROGS-$(CONFIG_FFPLAY)   += ffplay
 AVPROGS-$(CONFIG_FFPROBE)  += ffprobe
+AVPROGS-$(CONFIG_FFRDP)  += ffrdp
 
 AVPROGS     := $(AVPROGS-yes:%=%$(PROGSSUF)$(EXESUF))
 PROGS       += $(AVPROGS)
@@ -8,6 +9,8 @@ PROGS       += $(AVPROGS)
 AVBASENAMES  = ffmpeg ffplay ffprobe
 ALLAVPROGS   = $(AVBASENAMES:%=%$(PROGSSUF)$(EXESUF))
 ALLAVPROGS_G = $(AVBASENAMES:%=%$(PROGSSUF)_g$(EXESUF))
+
+OBJS-ffrdp += libavformat/a.pb-c.o
 
 OBJS-ffmpeg                        += fftools/ffmpeg_opt.o fftools/ffmpeg_filter.o fftools/ffmpeg_hw.o
 OBJS-ffmpeg-$(CONFIG_LIBMFX)       += fftools/ffmpeg_qsv.o
