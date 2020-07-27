@@ -6516,7 +6516,7 @@ if enabled sdl2; then
 fi
 
 if enabled protobuf_c; then
-    check_headers protobuf-c/protobuf-c.h && protobuf_c_extralibs="-lprotobuf-c" || disable protobuf_c
+    test_pkg_config protobuf_c "libprotobuf-c >= 1.0.0 libprotobuf-c <= 1.3.3" protobuf-c/protobuf-c.h protobuf_c_message_init
 fi
 
 if enabled decklink; then
